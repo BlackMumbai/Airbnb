@@ -4,13 +4,15 @@ import {
   Text,
   View,
   ListView,
-  Image
+  Image,
+  TouchableHighlight,
+  ActivityIndicator,
 } from 'react-native';
 import {
-  Router,
-  Scene,
-  Actions,
+    Actions, 
 } from 'react-native-router-flux';
+
+import AboutScene from  './AboutScene';
 
 class RoomScene extends React.Component {
 
@@ -22,6 +24,12 @@ class RoomScene extends React.Component {
                 rowHasChanged: (r1, r2) => r1 !== r2,
             }),
         }
+    }
+
+    countingStar(rating) {
+        let star = rowData.ratingValue
+        let showStar = '&#9733;'.repeat(star);
+        console.log(showStar);
     }
 
     componentDidMount () {
@@ -41,40 +49,44 @@ class RoomScene extends React.Component {
                 dataSource={this.state.dataRoom}
                 renderRow={(rowData) => {
                     return (
-                        <View style={styles.container}>
-                            <Text style={styles.title}>{rowData.title}</Text>
-                            <Image
-                                source={{ uri: rowData.photos[0] }}
-                                style={{ width: 300, height: 150 }} />
-                            <Text style={{
-                                marginTop: 15
-                            }}>{rowData.description}</Text> 
-                            <View  style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                justifyContent: 'space-between',
-                                marginTop: 15
-                                }}>
-                                <View style={{
-                                    alignItems: 'flex-start'
-                                }}>
-                                    <Text>Prix: {rowData.price}€</Text>
-                                    <Text>Reviews: {rowData.reviews}</Text>
-                                    <Text>Rating: {rowData.ratingValue}</Text>
-                                </View>
-                                <View style={{
-                                    alignItems: 'flex-end'
-                                }}>
-                                    <Image
-                                        source={{ uri: rowData.user.account.photos[0] }}
-                                        style={{ 
-                                            width: 50, 
-                                            height: 50,
-                                            borderRadius: 25
-                                            }} />
+                        <TouchableHighlight
+                            onPress={() => Actions.about({rowData})}>
+                            <View style={styles.container}>
+                                <Image
+                                    source={{ uri: rowData.photos[0] }}
+                                    style={{ width: 300, height: 150 }} />
+                                <Text style={styles.title}>{rowData.title}</Text>
+                                <View  style={{
+                                    flex: 1,
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-between',
+                                    marginTop: 15
+                                    }}>
+                                    <View style={{
+                                        alignItems: 'flex-start'
+                                    }}>
+                                        <Text>Prix: {rowData.price}€</Text>
+                                        <Text>{rowData.reviews} Reviews</Text>
+                                        <Text style={{
+                                            color: '#edd900'
+                                        }}>{'★'.repeat(rowData.ratingValue)}
+                                        {'☆'.repeat(5-rowData.ratingValue)}
+                                        </Text>
+                                    </View>
+                                    <View style={{
+                                        alignItems: 'flex-end'
+                                    }}>
+                                        <Image
+                                            source={{ uri: rowData.user.account.photos[0] }}
+                                            style={{ 
+                                                width: 50, 
+                                                height: 50,
+                                                borderRadius: 25
+                                                }} />
+                                    </View>
                                 </View>
                             </View>
-                        </View>
+                        </TouchableHighlight>
                     )
                 }}
             />
@@ -84,18 +96,16 @@ class RoomScene extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 35,
+    marginTop: 40,
     flex: 1,
     justifyContent: 'center',
-    /*alignItems: 'center',*/
-    backgroundColor: '#9e8c8c',
     padding: 30,
-    fontFamily: 'CircularAirPro-Book'
+/*    fontFamily: 'CircularAirPro-Book'*/
   },
   title: {
     flex: 1,
     fontSize: 18,
-    fontFamily: 'CircularAirPro-Bold',
+/*    fontFamily: 'CircularAirPro-Bold',*/
     marginBottom: 15,
   },
 });

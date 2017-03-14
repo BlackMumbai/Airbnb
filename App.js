@@ -17,7 +17,7 @@ class App extends React.Component {
     return (
       <Router>
         <Scene key={'room'} title={'MonAirbnb'} component={RoomScene} />
-        <Scene key={'about'} title={'About'} component={AboutScene} />
+        <Scene key={'about'} title={'About the Room'} component={AboutScene} />
       </Router>
     );
   }
