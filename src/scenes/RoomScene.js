@@ -11,7 +11,6 @@ import {
 import {
     Actions, 
 } from 'react-native-router-flux';
-
 import AboutScene from  './AboutScene';
 
 class RoomScene extends React.Component {
@@ -106,7 +105,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 18,
 /*    fontFamily: 'CircularAirPro-Bold',*/
-    marginBottom: 15,
   },
 });
 

@@ -10,19 +10,23 @@ import {
 import {
     Actions, 
 } from 'react-native-router-flux';
+import Map from 'react-native-maps';
 
-class AboutScene extends React.Component {
+class AboutScene extends React.Component { 
   render() {
     console.log(this.props.rowData);
+    const {
+      rowData,
+    } = this.props;
     return (
       <View style={styles.container}>
-          <Text style={styles.title}>{this.props.rowData.title}</Text>
+          <Text style={styles.title}>{rowData.title}</Text>
           <Image
-              source={{ uri: this.props.rowData.photos[0] }}
+              source={{ uri: rowData.photos[0] }}
               style={{ width: 300, height: 150 }} />
           <Text style={{
               marginTop: 15
-          }}>{this.props.rowData.description}</Text> 
+          }}>{rowData.description}</Text> 
           <View  style={{
               flex: 1,
               flexDirection: 'row',
@@ -32,26 +36,47 @@ class AboutScene extends React.Component {
               <View style={{
                   alignItems: 'flex-start'
               }}>
-                  <Text>Prix: {this.props.rowData.price}€</Text>
-                  <Text>{this.props.rowData.reviews} Reviews</Text>
+                  <Text>Prix: {rowData.price}€</Text>
+                  <Text>{rowData.reviews} Reviews</Text>
                   <Text style={{
                       color: '#edd900'
-                    }}>{'★'.repeat(this.props.rowData.ratingValue)}
-                      {'☆'.repeat(5-this.props.rowData.ratingValue)}
+                    }}>{'★'.repeat(rowData.ratingValue)}
+                      {'☆'.repeat(5-rowData.ratingValue)}
                   </Text>
               </View>
               <View style={{
                   alignItems: 'flex-end'
               }}>
+              <TouchableHighlight
+                  onPress={() => Actions.profil({rowData})}>
                   <Image
-                      source={{ uri: this.props.rowData.user.account.photos[0] }}
+                      source={{ uri: rowData.user.account.photos[0] }}
                       style={{ 
                           width: 50, 
                           height: 50,
                           borderRadius: 25
                           }} />
+              </TouchableHighlight>
               </View>
           </View>
+          <Map
+            initialRegion={{
+              latitude: rowData.loc[1],
+              longitude: rowData.loc[0],
+              latitudeDelta: 0.0120,
+              longitudeDelta: 0.0120,
+            }} 
+            style={{
+              height: 150,
+              width: 300,
+            }}>
+          <Map.Marker
+            coordinate={{
+              latitude: rowData.loc[1],
+              longitude: rowData.loc[0],
+            }}
+            title={rowData.title} />
+          </Map>
       </View>
     );
   }
