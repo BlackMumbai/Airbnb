@@ -11,7 +11,10 @@
     "react-native": "0.42.0",
     "react-native-accordion": "^1.0.1",
     "react-native-maps": "^0.13.0",
-    "react-native-router-flux": "^3.38.0"
+    "react-native-router-flux": "^3.38.0",
+    "react-native-simple-login": "^1.1.0",
+    "react-native-vector-icons": "^4.0.0",
+    "react-navigation": "^1.0.0-beta.7"
   },
   "devDependencies": {
     "babel-jest": "19.0.0",

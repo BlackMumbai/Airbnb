@@ -43,6 +43,8 @@ class RoomScene extends React.Component {
     }
 
     render() {
+        console.log('this.props.email', this.props.email);
+        console.log('this.props.password', this.props.password);
         return (
             <ListView 
                 dataSource={this.state.dataRoom}
