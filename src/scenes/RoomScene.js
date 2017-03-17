@@ -25,12 +25,6 @@ class RoomScene extends React.Component {
         }
     }
 
-    countingStar(rating) {
-        let star = rowData.ratingValue
-        let showStar = '&#9733;'.repeat(star);
-        console.log(showStar);
-    }
-
     componentDidMount () {
         fetch('http://localhost:3001/api/room?city=paris')
         .then(res => res.json())

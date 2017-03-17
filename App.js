@@ -16,9 +16,11 @@ import ProfilScene from './src/scenes/ProfilScene';
 import LoginScene from './src/scenes/LoginScene';
 
 class App extends React.Component {
+
   render() {
     return (
       <Router>
+        <Scene key={'signin'} component={LoginScene} />
         <Scene
           key={'tab'}
           tabs
@@ -28,34 +30,28 @@ class App extends React.Component {
           }}
           type={'replace'}>
           <Scene 
-          key={'signin'} 
-          component={LoginScene} />
+            key={'room'} 
+            title={'MonAirbnb'} 
+            component={RoomScene} 
+            icon={(props) =>
+                  <Icon
+                    name={'md-home'}
+                    color={props.selected ? '#AAA' : '#000' } 
+                    style={{
+                      fontSize: 20
+                    }}/> } />
+          <Scene key={'about'} title={'About the Room'} component={AboutScene} />
           <Scene 
-          key={'room'} 
-          title={'MonAirbnb'} 
-          component={RoomScene} 
-          icon={(props) =>
-                <Icon
-                  name={'md-home'}
-                  color={props.selected ? '#AAA' : '#000' } 
-                  style={{
-                    fontSize: 20
-                  }}/> } />
-          <Scene 
-          key={'about'} 
-          title={'About the Room'} 
-          component={AboutScene} />
-          <Scene 
-          key={'profil'} 
-          title={'Profil'} 
-          component={ProfilScene} 
-          icon={(props) =>
-                <Icon
-                  name={'md-contact'}
-                  color={props.selected ? '#AAA' : '#000' } 
-                  style={{
-                    fontSize: 20
-                  }}/> } />
+            key={'profil'} 
+            title={'Profil'} 
+            component={ProfilScene} 
+            icon={(props) =>
+                  <Icon
+                    name={'md-contact'}
+                    color={props.selected ? '#AAA' : '#000' } 
+                    style={{
+                      fontSize: 20
+                    }}/> } />
         </Scene>
       </Router>
     );

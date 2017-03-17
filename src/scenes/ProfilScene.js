@@ -6,7 +6,9 @@ import {
   ListView,
   StyleSheet,
   ScrollView,
+  TouchableHighlight,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 class ProfilScene extends React.Component {
 
@@ -41,7 +43,7 @@ class ProfilScene extends React.Component {
     }
 
     render() {
-        console.log('this.props.rowData.user.account.rooms[0]',this.props.rowData.user.account.rooms[0]);
+/*        console.log('this.props.rowData.user.account.rooms[0]',this.props.rowData.user.account.rooms[0]);*/
         return (
             <ScrollView>
                 <View style={styles.container}>

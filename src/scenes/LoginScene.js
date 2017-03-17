@@ -5,10 +5,13 @@ import {
   View,
   Text,
   Button,
+  Alert,
+  ActivityIndicator,
 } from 'react-native';
 import {
     Actions, 
 } from 'react-native-router-flux';
+import Store from 'react-native-simple-store';
 
 const styles = StyleSheet.create({
     input: {
@@ -22,8 +25,8 @@ class LoginScene extends React.Component {
         super(props);
         
         this.state = { 
-            email: '',
-            password: '' 
+            email: 'carine@airbnb-api.com',
+            password: 'password01' 
         };
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -37,11 +40,19 @@ class LoginScene extends React.Component {
             body: JSON.stringify(user)
         })
         .then(res => res.json())
-        .then(json => {
-            console.log(json);
-            if (!json.error) {
-            //this.authenticate(json);
-            Actions.room();
+        .then(user => {
+            console.log(user);
+            if (!user.error) {
+                Store.save('user', {
+                    email: 'carine@airbnb-api.com',
+                    password: 'password01'
+                })
+                .then(() => {
+                    Actions.tab();
+                });
+            }
+            if (user.error) {
+                Alert.alert(user.error);
             }
         });
     }
@@ -53,7 +64,15 @@ class LoginScene extends React.Component {
                 justifyContent: 'center',
                 paddingHorizontal: 60,
             }}>
-                <View>
+                <Text style={{
+                    alignSelf: 'center',
+                    fontSize: 20,
+                    marginBottom: 20
+                }}>WELCOME on myAirbnb!</Text>
+                <View style={{
+                    borderBottomWidth: 1
+                    
+                }}>
                     <TextInput
                         placeholder="email"
                         onChangeText={(email) => this.setState({email})}
@@ -61,9 +80,10 @@ class LoginScene extends React.Component {
                         value={this.state.email}
                         required/>
                 </View>
-            <View style={{
+                <View style={{
                     marginTop: 20,
                     marginBottom: 20,
+                    borderBottomWidth: 1
                 }}>
                     <TextInput 
                         placeholder="password"
@@ -74,7 +94,8 @@ class LoginScene extends React.Component {
                 <Button
                     onPress={() => this.onSubmit()}
                     title= "LogMeIn!"
-                    color= 'black' />
+                    color= 'black' >
+                </Button>    
             </View>
         );
     }
